@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<jasper.version>9.0.38</jasper.version>
+		<mapstruct.version>1.4.0.Final</mapstruct.version>
 	</properties>
 
 	<dependencies>
@@ -32,6 +33,16 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jasper</artifactId>
 			<version>${jasper.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>${mapstruct.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>

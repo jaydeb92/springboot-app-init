@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.xworkz.boot.dto.MessageDTO;
 import com.xworkz.boot.entity.MessageEntity;
+import com.xworkz.boot.mapper.MessageMapper;
 import com.xworkz.boot.repository.MessageRepository;
 
 @Service
@@ -17,6 +18,8 @@ public class MessageServiceImpl implements MessageService {
 	private static final Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
 	@Autowired
 	private MessageRepository messageRepository;
+	@Autowired
+	private MessageMapper messageMapper;
 
 	@Override
 	public int create(MessageDTO messageDTO) {
@@ -45,9 +48,14 @@ public class MessageServiceImpl implements MessageService {
 				if (valid) {
 					logger.debug("message and name not empty can send message.");
 					valid = true;
-					MessageEntity entity = new MessageEntity();
-					BeanUtils.copyProperties(messageDTO, entity);
+					/*
+					 * MessageEntity entity = new MessageEntity();
+					 * BeanUtils.copyProperties(messageDTO, entity);
+					 */
+					MessageEntity entity = messageMapper.convertDtoToEntity(messageDTO);
+
 					MessageEntity messageEntity = messageRepository.save(entity);
+
 					int mid = messageEntity.getMid();
 					logger.debug("mid\t" + mid);
 					return mid;
