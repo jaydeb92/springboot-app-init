@@ -1,14 +1,26 @@
 package com.xworkz.boot.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.xworkz.boot.dto.AppInfoDTO;
 import com.xworkz.boot.dto.MessageDTO;
+import com.xworkz.boot.service.AppInfoService;
 import com.xworkz.boot.service.MessageService;
 
 @Controller
@@ -17,12 +29,26 @@ public class MessageHomeController {
 	private static final Logger logger = LoggerFactory.getLogger(MessageHomeController.class);
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	private AppInfoService appInfoService;
+	private List<AppInfoDTO> list;
 
 	public MessageHomeController() {
 		logger.debug("created\t" + this.getClass().getSimpleName());
 	}
 
+	@InitBinder
+	public void init(WebDataBinder binder) {
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+	}
+
+	@PostConstruct
+	public void init() {
+		list = new ArrayList<AppInfoDTO>();
+	}
+
 	public String getWelcomePage() {
+
 		logger.debug("invoked getWelcomePage method");
 		return "index";
 
@@ -47,6 +73,25 @@ public class MessageHomeController {
 			logger.error(e.getMessage());
 		}
 		return "ShowMessage";
+
+	}
+
+	@RequestMapping(value = "/sendModal", method = RequestMethod.POST)
+	public String getModalData(AppInfoDTO appInfoDTO, Model model) {
+
+		list.add(appInfoDTO);
+		System.out.println(list);
+		model.addAttribute("modalList", list);
+
+		return "AppInfo";
+
+	}
+
+	@RequestMapping(value = "/sendAppInfo", method = RequestMethod.POST)
+	public String addAppInfoDetails(AppInfoDTO appInfoDTO, Model model) {
+		logger.debug("invoked addAppInfoDetails method");
+		appInfoService.create(appInfoDTO, list);
+		return "AppInfo";
 
 	}
 
