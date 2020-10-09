@@ -2,6 +2,8 @@ package com.xworkz.boot.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -11,12 +13,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xworkz.boot.dto.AppInfoDTO;
 import com.xworkz.boot.dto.MessageDTO;
@@ -76,18 +82,22 @@ public class MessageHomeController {
 
 	}
 
-	@RequestMapping(value = "/sendModal", method = RequestMethod.POST)
-	public String getModalData(AppInfoDTO appInfoDTO, Model model) {
-
+	
+	 
+	
+	@RequestMapping(value = "sendModal", method = RequestMethod.POST)
+	public ResponseEntity<Object> getModalData(@RequestBody AppInfoDTO appInfoDTO) {
+		 
 		list.add(appInfoDTO);
-		System.out.println(list);
-		model.addAttribute("modalList", list);
 
-		return "AppInfo";
+		System.out.println(list);
+		
+		return ResponseEntity.ok().body("Success");
 
 	}
 
 	@RequestMapping(value = "/sendAppInfo", method = RequestMethod.POST)
+
 	public String addAppInfoDetails(AppInfoDTO appInfoDTO, Model model) {
 		logger.debug("invoked addAppInfoDetails method");
 		appInfoService.create(appInfoDTO, list);

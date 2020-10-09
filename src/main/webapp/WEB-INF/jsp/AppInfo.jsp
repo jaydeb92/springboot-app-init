@@ -8,7 +8,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
@@ -24,6 +26,49 @@
 		modal.find('.modal-title').text('New message to ' + recipient)
 		modal.find('.modal-body input').val(recipient)
 	})
+</script>
+
+<script type="text/javascript">
+	var modalArray = [];
+	$(document).ready(function() {
+		$('#modalSave').click(function() {
+			var dataEnv = $("#exampleModal #env").val();
+			var dataUrl = $("#exampleModal #url").val();
+
+			modalArray.push(dataEnv);
+			modalArray.push(dataUrl);
+
+			$('#ENV').html(dataEnv);
+			$('#URL').html(dataUrl);
+
+			var postData = {
+				env : $("#exampleModal #env").val(),
+				url : $("#exampleModal #url").val()
+			};
+			console.log("Object is : " + postData);
+
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "/sendModal",
+				headers : {
+					"Content-Type" : "application/json",
+					"Accept" : "application/json"
+				},
+				data : JSON.stringify(postData),
+
+				success : function(data) {
+					console.log('my message' + data);
+
+				},
+				error : function(req, err) {
+					console.log('my message' + err);
+				},
+
+			});
+
+		});
+	});
 </script>
 </head>
 <body>
@@ -93,27 +138,28 @@
 						style="margin-right: 350px;">Add Env</button>
 					<br>
 				</div>
-
+				<!-- <div id="result"></div> -->
 				<div class="form-group col-md-6">
 					<table border="1">
 						<thead>
 							<tr>
-								<th>#</th>
+								<!-- 	<th>#</th> -->
 								<th>ENV</th>
 								<th>URL</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:set var="i" value="1" />
-							<c:forEach items="${modalList}" var="lists">
-								<tr>
-									<td>${i}</td>
-									<td>${lists.env}</td>
-									<td>${lists.url}</td>
-								</tr>
-								<c:set var="i" value="${i+1}" />
+							<%-- <c:set var="i" value="1" />
+							<c:forEach items="${modalList}" var="lists"> --%>
+							<tr>
+								<td id="ENV"></td>
+								<td id="URL"></td>
+								<!-- <td id="result1"></td> -->
+								<%-- <td>${lists.url}</td> --%>
+							</tr>
+							<%-- 	<c:set var="i" value="${i+1}" />
 							</c:forEach>
-						</tbody>
+						</tbody> --%>
 					</table>
 
 
@@ -123,8 +169,11 @@
 			</div>
 			<!-- <input class="btn btn-primary" type="submit" value="Register"> -->
 
-			<input type="submit" class="btn btn-primary" name="save" value="Add"
-				form="saveAppInfo" />
+			<input type="submit" class="btn btn-primary" name="save"
+				id="saveAppData" value="Add" form="saveAppInfo" />
+
+			<!-- <input type="submit" class="btn btn-primary" name="myButton"
+				value="Add" form="saveAppInfo" /> -->
 
 
 		</div>
@@ -152,11 +201,13 @@
 
 				<div class="form-group">
 					<label for="recipient-name" class="col-form-label">ENV:</label> <input
-						type="text" class="form-control" form="saveModal" name="env" />
+						type="text" class="form-control" form="saveModal" id="env"
+						name="env" />
 				</div>
 				<div class="form-group">
 					<label for="recipient-name" class="col-form-label">URL:</label> <input
-						type="text" class="form-control" form="saveModal" name="url" />
+						type="text" class="form-control" form="saveModal" id="url"
+						name="url" />
 				</div>
 				<!-- <div class="form-group">
 							<label for="recipient-name" class="col-form-label">Accessible:</label>
@@ -168,8 +219,15 @@
 
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-				<input type="submit" class="btn btn-primary" value="Save"
-					form="saveModal" />
+				<!-- <input type="submit" class="btn btn-primary" value="Save"
+					form="saveModal" /> -->
+
+				<button type="button" class="btn btn-primary" id="modalSave"
+					data-dismiss="modal">Save</button>
+
+
+				<!-- 	<input type="button" value="Save" class="btn btn-primary"
+					form="saveModal" onclick="resetForm(this.form);" /> -->
 
 			</div>
 		</div>
