@@ -41,6 +41,14 @@ public class AppInfoEntity {
 	private Date developDate;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appInfoEntity")
 	private List<AppInfoEnvEntity> appInfoEnvEntity;
+	@Column(name = "CREATED_TIMESTAMP")
+	private Date createdTimestamp;
+	@Column(name = "CREATED_BY")
+	private String createdBy;
+	@Column(name = "UPDATED_TIMESTAMP")
+	private Date updatedTimestamp;
+	@Column(name = "UPDATED_BY")
+	private String updatedBy;
 
 	public AppInfoEntity() {
 		logger.debug("created\t" + this.getClass().getSimpleName());
@@ -120,6 +128,38 @@ public class AppInfoEntity {
 
 	public List<AppInfoEnvEntity> getAppInfoEnvEntity() {
 		return appInfoEnvEntity;
+	}
+
+	public Date getCreatedTimestamp() {
+		return createdTimestamp;
+	}
+
+	public void setCreatedTimestamp(Date createdTimestamp) {
+		this.createdTimestamp = createdTimestamp;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getUpdatedTimestamp() {
+		return updatedTimestamp;
+	}
+
+	public void setUpdatedTimestamp(Date updatedTimestamp) {
+		this.updatedTimestamp = updatedTimestamp;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 	public void setAppInfoEnvEntity(List<AppInfoEnvEntity> appInfoEnvEntity) {

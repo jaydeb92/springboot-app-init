@@ -29,46 +29,69 @@
 </script>
 
 <script type="text/javascript">
-	var modalArray = [];
-	$(document).ready(function() {
-		$('#modalSave').click(function() {
-			var dataEnv = $("#exampleModal #env").val();
-			var dataUrl = $("#exampleModal #url").val();
+	var itemCount = 0;
+	$(document).ready(
+			function() {
+				var objs = [];
+				var temp_objs = [];
+				$('#modalSave').click(
+						function() {
+							var dataEnv = $("#exampleModal #env").val();
+							var dataUrl = $("#exampleModal #url").val();
 
-			modalArray.push(dataEnv);
-			modalArray.push(dataUrl);
+							//#start display modal data on table
+							var html = "";
 
-			$('#ENV').html(dataEnv);
-			$('#URL').html(dataUrl);
+							var obj = {
+								"ROW_ID" : itemCount,
+								"ENV" : dataEnv,
+								"URL" : dataUrl
 
-			var postData = {
-				env : $("#exampleModal #env").val(),
-				url : $("#exampleModal #url").val()
-			};
-			console.log("Object is : " + postData);
+							}
 
-			$.ajax({
-				type : "POST",
-				contentType : "application/json",
-				url : "/sendModal",
-				headers : {
-					"Content-Type" : "application/json",
-					"Accept" : "application/json"
-				},
-				data : JSON.stringify(postData),
+							// add object
+							objs.push(obj);
 
-				success : function(data) {
-					console.log('my message' + data);
+							itemCount++;
+							// dynamically create rows in the table
+							html = "<tr id='tr"+ itemCount + "'><td>"
+									+ obj['ENV'] + "</td> <td>" + obj['URL']
+									+ " </td> <td>";
 
-				},
-				error : function(req, err) {
-					console.log('my message' + err);
-				},
+								
+							//add to the table
+							$("#bill_table").append(html)
+							//#endt display modal data on table
+						
+							// #start sending modal data to controler
+							var postData = {
+								env : $("#exampleModal #env").val(),
+								url : $("#exampleModal #url").val()
+							};
+							console.log("Object is : " + postData);
 
+							$.ajax({
+								type : "POST",
+								contentType : "application/json",
+								url : "/sendModal",
+								headers : {
+									"Content-Type" : "application/json",
+									"Accept" : "application/json"
+								},
+								data : JSON.stringify(postData),
+
+								success : function(data) {
+									console.log('my message' + data);
+
+								},
+								error : function(req, err) {
+									console.log('my message' + err);
+								},
+
+							});// #end sending modal data to controler
+
+						});
 			});
-
-		});
-	});
 </script>
 </head>
 <body>
@@ -130,50 +153,29 @@
 						class="form-control" form="saveAppInfo" name="developDate">
 				</div>
 				<div class="form-group col-md-6">
-					<!-- <button class="btn btn-default" id="button1">Add
-							to Env</button> -->
+					
 
 					<button type="button" class="btn btn-primary" data-toggle="modal"
 						data-target="#exampleModal" data-whatever="@mdo"
 						style="margin-right: 350px;">Add Env</button>
 					<br>
 				</div>
-				<!-- <div id="result"></div> -->
-				<div class="form-group col-md-6">
-					<table border="1">
-						<thead>
-							<tr>
-								<!-- 	<th>#</th> -->
-								<th>ENV</th>
-								<th>URL</th>
-							</tr>
-						</thead>
-						<tbody>
-							<%-- <c:set var="i" value="1" />
-							<c:forEach items="${modalList}" var="lists"> --%>
-							<tr>
-								<td id="ENV"></td>
-								<td id="URL"></td>
-								<!-- <td id="result1"></td> -->
-								<%-- <td>${lists.url}</td> --%>
-							</tr>
-							<%-- 	<c:set var="i" value="${i+1}" />
-							</c:forEach>
-						</tbody> --%>
-					</table>
 
-
+				<div class="form-group col-lg-6">
+				
+					<table border='1' id='bill_table' width='50%' cellspacing='3'
+						cellpadding='5'></table>
+					
 				</div>
 
 
 			</div>
-			<!-- <input class="btn btn-primary" type="submit" value="Register"> -->
+			
 
 			<input type="submit" class="btn btn-primary" name="save"
 				id="saveAppData" value="Add" form="saveAppInfo" />
 
-			<!-- <input type="submit" class="btn btn-primary" name="myButton"
-				value="Add" form="saveAppInfo" /> -->
+			
 
 
 		</div>
@@ -209,10 +211,7 @@
 						type="text" class="form-control" form="saveModal" id="url"
 						name="url" />
 				</div>
-				<!-- <div class="form-group">
-							<label for="recipient-name" class="col-form-label">Accessible:</label>
-							<input type="text" class="form-control" id="myPopupInput">
-						</div> -->
+			
 
 			</div>
 			<div class="modal-footer">
@@ -226,8 +225,7 @@
 					data-dismiss="modal">Save</button>
 
 
-				<!-- 	<input type="button" value="Save" class="btn btn-primary"
-					form="saveModal" onclick="resetForm(this.form);" /> -->
+			
 
 			</div>
 		</div>
