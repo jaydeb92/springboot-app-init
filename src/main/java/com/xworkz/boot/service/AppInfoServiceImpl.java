@@ -1,5 +1,6 @@
 package com.xworkz.boot.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -48,6 +49,11 @@ public class AppInfoServiceImpl implements AppInfoService {
 				}
 
 				appInfoEntity.setAppInfoEnvEntity(appInfoEnvEntityList);
+
+				appInfoEntity.setCreatedTimestamp(dto.getDevelopDate());
+				appInfoEntity.setCreatedBy("Jaydeb");
+				appInfoEntity.setUpdatedTimestamp(dto.getNextRelease());
+				appInfoEntity.setUpdatedBy("jaydeb");
 
 				appInfoRepository.save(appInfoEntity);
 
