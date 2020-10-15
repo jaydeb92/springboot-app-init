@@ -153,7 +153,7 @@
 						class="form-control" form="saveAppInfo" name="developDate">
 				</div>
 				<div class="form-group col-md-6">
-					
+
 
 					<button type="button" class="btn btn-primary" data-toggle="modal"
 						data-target="#exampleModal" data-whatever="@mdo"
@@ -162,20 +162,19 @@
 				</div>
 
 				<div class="form-group col-lg-6">
-				
+
 					<table border='1' id='bill_table' width='50%' cellspacing='3'
 						cellpadding='5'></table>
-					
+
 				</div>
 
 
 			</div>
-			
+
 
 			<input type="submit" class="btn btn-primary" name="save"
-				id="saveAppData" value="Add" form="saveAppInfo" />
-
-			
+				id="saveAppData" value="Add" form="saveAppInfo" /> <a href="upload"
+				class="btn btn-primary">UploadBulk</a>
 
 
 		</div>
@@ -211,7 +210,7 @@
 						type="text" class="form-control" form="saveModal" id="url"
 						name="url" />
 				</div>
-			
+
 
 			</div>
 			<div class="modal-footer">
@@ -225,7 +224,7 @@
 					data-dismiss="modal">Save</button>
 
 
-			
+
 
 			</div>
 		</div>

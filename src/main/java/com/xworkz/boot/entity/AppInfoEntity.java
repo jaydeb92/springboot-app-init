@@ -166,4 +166,13 @@ public class AppInfoEntity {
 		this.appInfoEnvEntity = appInfoEnvEntity;
 	}
 
+	@Override
+	public String toString() {
+		return "AppInfoEntity [aid=" + aid + ", projectName=" + projectName + ", version=" + version + ", teamManager="
+				+ teamManager + ", email=" + email + ", deComm=" + deComm + ", lastRelease=" + lastRelease
+				+ ", nextRelease=" + nextRelease + ", developDate=" + developDate + ", createdTimestamp="
+				+ createdTimestamp + ", createdBy=" + createdBy + ", updatedTimestamp=" + updatedTimestamp
+				+ ", updatedBy=" + updatedBy + "]";
+	}
+
 }

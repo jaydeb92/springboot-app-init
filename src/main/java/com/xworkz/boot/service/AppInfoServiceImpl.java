@@ -1,6 +1,5 @@
 package com.xworkz.boot.service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xworkz.boot.dto.AppInfoDTO;
-
 import com.xworkz.boot.entity.AppInfoEntity;
 import com.xworkz.boot.entity.AppInfoEnvEntity;
 import com.xworkz.boot.repository.AppInfoRepository;

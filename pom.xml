@@ -19,6 +19,7 @@
 		<jasper.version>9.0.38</jasper.version>
 		<mapstruct.version>1.4.0.Final</mapstruct.version>
 		<jstl.version>1.2</jstl.version>
+		<poi.version>4.1.2</poi.version>
 	</properties>
 
 	<dependencies>
@@ -40,6 +41,29 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jasper</artifactId>
 			<version>${jasper.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<!-- excel 2007 over -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<!-- upload file -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
